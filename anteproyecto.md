@@ -2,9 +2,7 @@
 
 # Anteproyecto - ECOMER
 
-<div align="center">
-![fondo](img/verduras.jpg)
-</div>
+![fondo](../img/verduras.jpg)
 
 ### Descripción del problema.
 
