@@ -9,4 +9,4 @@ alimenticia de nuestros usuarios como apoyar el trabajo del buen agricultor.
 
 ## Diagrama E/R
 
-![Diagrama ER](img/diagrama_ER.png)
+![Diagrama ER](img/der2.png)
