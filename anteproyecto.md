@@ -3,7 +3,7 @@
 # Anteproyecto - ECOMER
 
 <div align="center">
-<img src="img/verduras.png" />
+![fondo](img/verduras.jpg)
 </div>
 
 ### Descripción del problema.
