@@ -5,6 +5,6 @@ En esta sección, se encuentra toda la documentación relacionada con la aplicac
 ## Indice
 
 
-[Anteproyecto](/anteproyecto.md)
-[Diagrama Casos de Uso](/diagrama-casos-uso.md)
-[Diagrama Entidad-Relación](/diagrama-entidad-relacion.md)
+[Anteproyecto](anteproyecto.md)
+[Diagrama Casos de Uso](diagrama-casos-uso.md)
+[Diagrama Entidad-Relación](diagrama-entidad-relacion.md)
