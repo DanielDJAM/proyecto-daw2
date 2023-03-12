@@ -2,4 +2,4 @@
 
 Segunda versión del Diagrama E/R.
 
-![Diagrama ER](img/der2.png)
+![Diagrama ER](../img/der2.png)
