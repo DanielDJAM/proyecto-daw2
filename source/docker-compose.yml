@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  ecomer:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: ecomerdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./scripts/ecomerdb.sql:/docker-entrypoint-initdb.d/ecomerdb.sql
+    ports:
+      - "3306:3306"
+
+  apache:
+    image: httpd:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/usr/local/apache2/htdocs/
+
+  wildfly:
+    image: jboss/wildfly
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./deployments:/opt/jboss/wildfly/standalone/deployments/
+    environment:
+      JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64"
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: mysql
