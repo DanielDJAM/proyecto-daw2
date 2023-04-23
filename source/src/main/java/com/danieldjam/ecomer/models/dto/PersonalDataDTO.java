@@ -3,7 +3,7 @@ package com.danieldjam.ecomer.models.dto;
 public class PersonalDataDTO {
 
     private String dni;
-    private String address;
+    private AddressDTO addressId;
     private Integer age;
     private String genre;
     private String name;
@@ -12,9 +12,9 @@ public class PersonalDataDTO {
     public PersonalDataDTO() {
     }
 
-    public PersonalDataDTO(String dni, String address, Integer age, String genre, String name, String surname) {
+    public PersonalDataDTO(String dni, AddressDTO addressId, Integer age, String genre, String name, String surname) {
         this.dni = dni;
-        this.address = address;
+        this.addressId = addressId;
         this.age = age;
         this.genre = genre;
         this.name = name;
@@ -29,12 +29,12 @@ public class PersonalDataDTO {
         this.dni = dni;
     }
 
-    public String getAddress() {
-        return address;
+    public AddressDTO getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressId(AddressDTO addressId) {
+        this.addressId = addressId;
     }
 
     public int getAge() {

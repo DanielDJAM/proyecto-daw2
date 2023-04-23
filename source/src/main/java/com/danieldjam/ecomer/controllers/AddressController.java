@@ -31,14 +31,9 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAddressById(@PathVariable String id){
-        String message = "";
-        try{
-            message = addressService.deleteAddressById(id);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(message + ex.getMessage(), HttpStatus.resolve(500));
-        }
-        return new ResponseEntity<>(message, HttpStatus.OK);
+    public ResponseEntity<Void> deleteAddressById(@PathVariable String id){
+        addressService.deleteAddressById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")

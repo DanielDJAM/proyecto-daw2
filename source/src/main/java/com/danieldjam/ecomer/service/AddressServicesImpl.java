@@ -46,13 +46,8 @@ public class AddressServicesImpl implements AddressService{
     }
 
     @Override
-    public String deleteAddressById(String id) {
+    public void deleteAddressById(String id) {
         addressRepository.deleteById(id);
-        if (!addressRepository.existsById(id)) {
-            return "Address Deleted Successfully";
-        }
-        return "Failed to Delete Address";
-
     }
 
     @Override
@@ -60,7 +55,8 @@ public class AddressServicesImpl implements AddressService{
         return convertAddressEntityToDTO(addressRepository.findById(id).get());
     }
 
-    private Address convertAddressDTOToEntity(AddressDTO addressDTO){
+    @Override
+    public Address convertAddressDTOToEntity(AddressDTO addressDTO){
         Address address = new Address();
 
         address.setAddressId(addressDTO.getAddressId());
@@ -74,7 +70,8 @@ public class AddressServicesImpl implements AddressService{
         return address;
     };
 
-    private AddressDTO convertAddressEntityToDTO(Address address){
+    @Override
+    public AddressDTO convertAddressEntityToDTO(Address address){
         AddressDTO AddressDTO = new AddressDTO();
 
         AddressDTO.setAddressId(address.getAddressId());
