@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,6 +16,9 @@ public class UserServicesImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PersonalDataService personalDataService;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
@@ -24,39 +28,55 @@ public class UserServicesImpl implements UserService{
     }
 
     @Override
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return userList.stream().map(user -> convertUserEntityToDTO(user)).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO getUserById(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found with userId " + userId));
+        return convertUserEntityToDTO(user);
+    }
+
+    @Override
+    public UserDTO updateUser(String userId, UserDTO userDTO) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("Personal Data not found with userId " + userId));
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
+        User updatedUser = userRepository.save(user);
+        return convertUserEntityToDTO(updatedUser);
+    }
+
+    @Override
+    public void deleteUserById(String userId) {
+        userRepository.deleteById(userId);
     }
 
     private UserDTO convertUserEntityToDTO(User user){
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setId(user.getId());
+        userDTO.setUserId(user.getUserId());
+        userDTO.setDni(personalDataService.convertPersonalDataEntityToDTO(user.getDni()));
         userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
         userDTO.setUsername(user.getUsername());
+        userDTO.setPassword(user.getPassword());
+
         return userDTO;
     };
 
     private User convertUserDTOToEntity(UserDTO userDTO){
         User user = new User();
-        PersonalData dni = new PersonalData();
-        Order order = new Order();
-        Rol rol = new Rol();
-        Product product = new Product();
-        DetailInvoice detailInvoice = new DetailInvoice();
 
-        user.setId(userDTO.getId());
+        user.setUserId(userDTO.getUserId());
+        user.setDni(personalDataService.convertPersonalDataDTOToEntity(userDTO.getDni()));
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
-        user.setDni(dni);
-        user.setCreateTime(new Date());
-        //user.setOrders(order);
-        //user.setRols(rol);
-        //user.setProducts(product);
-        //user.setDetailInvoices(detailInvoice);
+        user.setPassword(userDTO.getPassword());
+
         return user;
     };
 }

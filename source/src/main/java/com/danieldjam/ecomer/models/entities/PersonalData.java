@@ -17,7 +17,7 @@ public class PersonalData {
     private String dni;
 
     @OneToOne
-    @JoinColumn( name = "address_id")
+    @JoinColumn( name = "address_id", nullable = false)
     private Address addressId;
 
     @Column(name = "name", nullable = false, length = 45)

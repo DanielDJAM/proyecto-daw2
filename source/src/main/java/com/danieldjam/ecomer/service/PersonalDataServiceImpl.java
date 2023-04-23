@@ -63,8 +63,8 @@ public class PersonalDataServiceImpl implements PersonalDataService{
         personalDataRepository.deleteById(dni);
     }
 
-
-    private PersonalData convertPersonalDataDTOToEntity(PersonalDataDTO personalDataDTO){
+    @Override
+    public PersonalData convertPersonalDataDTOToEntity(PersonalDataDTO personalDataDTO){
         PersonalData personalData = new PersonalData();
 
         personalData.setDni(personalDataDTO.getDni());
@@ -77,7 +77,8 @@ public class PersonalDataServiceImpl implements PersonalDataService{
         return personalData;
     }
 
-    private PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){
+    @Override
+    public PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){
         PersonalDataDTO personalDataDTO = new PersonalDataDTO();
 
         personalDataDTO.setDni(personalData.getDni());

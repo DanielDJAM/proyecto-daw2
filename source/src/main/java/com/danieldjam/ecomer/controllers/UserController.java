@@ -22,11 +22,22 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> getUsers(){
-        return userService.getUsers();
+    public List<UserDTO> getAllUsers(){
+        return userService.getAllUsers();
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String userId) { return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);}
 
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDTO> updateUserById(@PathVariable String userId, @RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.updateUser(userId, userDTO), HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable String userId) {
+        userService.deleteUserById(userId);
+        return ResponseEntity.noContent().build();
+    }
 
 }

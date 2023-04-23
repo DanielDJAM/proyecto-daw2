@@ -3,44 +3,40 @@ package com.danieldjam.ecomer.models.dto;
 
 public class UserDTO {
 
-    private String id;
-    private String dni;
+    private String userId;
+    private PersonalDataDTO dni;
     private String username;
     private String email;
     private String password;
-    private String creationTime;
 
     public UserDTO() {
     }
 
-    public UserDTO(String id, String dni, String username, String email, String password, String creationTime) {
-        this.id = id;
+    public UserDTO(String userId, PersonalDataDTO dni, String username, String email, String password) {
+        this.userId = userId;
         this.dni = dni;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.creationTime = creationTime;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getDni() {
+    public PersonalDataDTO getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(PersonalDataDTO dni) {
         this.dni = dni;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
 
     public void setUsername(String username) {
         this.username = username;
@@ -62,23 +58,15 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
-    }
 
     @Override
     public String toString() {
         return "UserDTO{" +
-                "id='" + id + '\'' +
+                "id='" + userId + '\'' +
                 ", dni='" + dni + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", creationTime='" + creationTime + '\'' +
                 '}';
     }
 }

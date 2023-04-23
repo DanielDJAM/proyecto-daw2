@@ -18,15 +18,14 @@ import java.util.Set;
 @Table(name = "User")
 public class User {
     @Id
-    @Column(name = "user_ID", nullable = false, length = 50)
-    private String id;
+    @Column(name = "user_id", nullable = false, length = 50)
+    private String userId;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @JoinColumn(name = "dni", nullable = false)
     private PersonalData dni;
 
-    @Column(name = "username", nullable = false, length = 16)
+    @Column(name = "username", nullable = false, length = 50)
     private String username;
 
     @Column(name = "email", nullable = false)
@@ -34,31 +33,5 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "create_time")
-    private Date createTime;
-
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "user")
-//    private Set<Payment> payments = new LinkedHashSet<>();
-
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "user")
-//    private Set<Order> orders = new LinkedHashSet<>();
-//
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "user")
-//    private Set<DetailInvoice> detailInvoices = new LinkedHashSet<>();
-//
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "user")
-//    private Set<Product> products = new LinkedHashSet<>();
-
-//    @ToString.Exclude
-//    @ManyToMany
-//    @JoinTable(name = "Rol_has_user",
-//            joinColumns = @JoinColumn(name = "user_ID"),
-//            inverseJoinColumns = @JoinColumn(name = "rol_ID"))
-//    private Set<Rol> rols = new LinkedHashSet<>();
 
 }
