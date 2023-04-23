@@ -8,6 +8,7 @@ public class EcomerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EcomerApplication.class, args);
+
 	}
 
 }

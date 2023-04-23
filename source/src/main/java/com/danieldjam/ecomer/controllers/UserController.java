@@ -1,54 +1,31 @@
 package com.danieldjam.ecomer.controllers;
 
-import com.danieldjam.ecomer.dao.UserDao;
-import com.danieldjam.ecomer.models.User;
+import com.danieldjam.ecomer.models.dto.UserDTO;
+import com.danieldjam.ecomer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
-    /* @RequestMapping(value = "usuario/{uid}")
-    public User getUsuario(@PathVariable String uid){
-        User usuario = new User();
-        return "prueba";
+    @PostMapping
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
+        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "login")
-    public User login(){
-        User usuario = new User();
-        return "prueba";
+    @GetMapping
+    public List<UserDTO> getUsers(){
+        return userService.getUsers();
     }
 
-    @RequestMapping(value = "register")
-    public User insert(){
-        User usuario = new User();
-        return "prueba";
-    }
-
-    @RequestMapping(value = "prueba")
-    public User edit(){
-        User usuario = new User();
-        return "prueba";
-    }*/
-
-    @RequestMapping(value = "prueba")
-    public String remove(){
-        return "prueba";
-    } 
-
-    @RequestMapping(value = "userList")
-    public List<User> getUserList(){
-        return userDao.getUserList();
-    }
 
 
 
