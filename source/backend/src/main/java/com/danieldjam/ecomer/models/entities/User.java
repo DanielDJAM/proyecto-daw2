@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@Entity(name = "User")//mirarlo
+@Entity(name = "User")//mirarlo pronto
 @Table(name = "User")
 public class User {
     @Id
