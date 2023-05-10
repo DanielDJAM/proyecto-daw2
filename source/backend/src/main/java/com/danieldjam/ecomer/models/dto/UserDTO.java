@@ -1,30 +1,34 @@
 package com.danieldjam.ecomer.models.dto;
 
 
+import java.util.Set;
+
 public class UserDTO {
 
-    private String userId;
+    private Integer userId;
     private PersonalDataDTO dni;
     private String username;
     private String email;
     private String password;
+    //private Set<RolesDTO> roles;
 
     public UserDTO() {
     }
 
-    public UserDTO(String userId, PersonalDataDTO dni, String username, String email, String password) {
+    public UserDTO(Integer userId, PersonalDataDTO dni, String username, String email, String password, Set<RolesDTO> roles) {
         this.userId = userId;
         this.dni = dni;
         this.username = username;
         this.email = email;
         this.password = password;
+        //this.roles = roles;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -58,15 +62,4 @@ public class UserDTO {
         this.password = password;
     }
 
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id='" + userId + '\'' +
-                ", dni='" + dni + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

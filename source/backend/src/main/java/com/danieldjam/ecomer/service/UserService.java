@@ -1,6 +1,7 @@
 package com.danieldjam.ecomer.service;
 
 import com.danieldjam.ecomer.models.dto.PersonalDataDTO;
+import com.danieldjam.ecomer.models.dto.ProductDTO;
 import com.danieldjam.ecomer.models.dto.UserDTO;
 
 import java.util.List;

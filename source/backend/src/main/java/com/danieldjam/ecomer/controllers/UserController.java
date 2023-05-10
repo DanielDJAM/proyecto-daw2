@@ -1,6 +1,8 @@
 package com.danieldjam.ecomer.controllers;
 
+import com.danieldjam.ecomer.models.dto.ProductDTO;
 import com.danieldjam.ecomer.models.dto.UserDTO;
+import com.danieldjam.ecomer.service.ProductService;
 import com.danieldjam.ecomer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProductService productService;
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
@@ -39,5 +44,4 @@ public class UserController {
         userService.deleteUserById(userId);
         return ResponseEntity.noContent().build();
     }
-
 }

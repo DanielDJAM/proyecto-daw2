@@ -2,7 +2,7 @@ package com.danieldjam.ecomer.models.dto;
 
 public class AddressDTO {
 
-    private String addressId;
+    private Integer addressId;
     private String country;
     private String city;
     private String state;
@@ -13,7 +13,7 @@ public class AddressDTO {
     public AddressDTO() {
     }
 
-    public AddressDTO(String addressId, String country, String city, String state, String street, String dataResidence, String postalCode) {
+    public AddressDTO(Integer addressId, String country, String city, String state, String street, String dataResidence, String postalCode) {
         this.addressId = addressId;
         this.country = country;
         this.city = city;
@@ -24,11 +24,11 @@ public class AddressDTO {
     }
 
 
-    public String getAddressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 

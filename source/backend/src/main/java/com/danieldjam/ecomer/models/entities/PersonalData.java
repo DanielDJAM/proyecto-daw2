@@ -3,6 +3,8 @@ package com.danieldjam.ecomer.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,16 +22,16 @@ public class PersonalData {
     @JoinColumn( name = "address_id", nullable = false)
     private Address addressId;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname", nullable = false, length = 45)
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "birthdate", nullable = false)
+    private Date birthdate;
 
-    @Column(name = "genre", nullable = false, length = 45)
+    @Column(name = "genre", nullable = false)
     private String genre;
 
 

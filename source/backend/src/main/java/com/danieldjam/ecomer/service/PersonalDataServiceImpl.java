@@ -5,6 +5,7 @@ import com.danieldjam.ecomer.models.dto.PersonalDataDTO;
 import com.danieldjam.ecomer.models.entities.Address;
 import com.danieldjam.ecomer.models.entities.PersonalData;
 import com.danieldjam.ecomer.repository.PersonalDataRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonalDataServiceImpl implements PersonalDataService{
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private PersonalDataRepository personalDataRepository;
@@ -65,30 +69,12 @@ public class PersonalDataServiceImpl implements PersonalDataService{
 
     @Override
     public PersonalData convertPersonalDataDTOToEntity(PersonalDataDTO personalDataDTO){
-        PersonalData personalData = new PersonalData();
-
-        personalData.setDni(personalDataDTO.getDni());
-        personalData.setAddressId(addressService.convertAddressDTOToEntity(personalDataDTO.getAddressId()));
-        personalData.setAge(personalDataDTO.getAge());
-        personalData.setGenre(personalDataDTO.getGenre());
-        personalData.setName(personalDataDTO.getName());
-        personalData.setSurname(personalDataDTO.getSurname());
-
-        return personalData;
+        return modelMapper.map(personalDataDTO, PersonalData.class);
     }
 
     @Override
     public PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){
-        PersonalDataDTO personalDataDTO = new PersonalDataDTO();
-
-        personalDataDTO.setDni(personalData.getDni());
-        personalDataDTO.setAddressId(addressService.convertAddressEntityToDTO(personalData.getAddressId()));
-        personalDataDTO.setAge(personalData.getAge());
-        personalDataDTO.setGenre(personalData.getGenre());
-        personalDataDTO.setName(personalData.getName());
-        personalDataDTO.setSurname(personalData.getSurname());
-
-        return personalDataDTO;
+        return modelMapper.map(personalData, PersonalDataDTO.class);
     }
 
 
