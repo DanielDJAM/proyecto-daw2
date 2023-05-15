@@ -1,38 +1,37 @@
-//package com.danieldjam.ecomer.models.entities;
-//
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
-//import lombok.*;
-//
-//import java.util.LinkedHashSet;
-//import java.util.Set;
-//
-//@Builder
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Getter
-//@Setter
-//@ToString
-//@Entity
-//public class Invoice {
-//    @Id
-//    @Column(name = "invoice_ID", nullable = false)
-//    private Integer id;
-//
-//    @Column(name = "finalPrice", nullable = false, length = 45)
-//    private String finalPrice;
-//
-//    @Column(name = "invoiceDate", nullable = false, length = 45)
-//    private String invoiceDate;
-//
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "invoice")
-//    private Set<Order> orders = new LinkedHashSet<>();
-//
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "invoice")
-//    private Set<DetailInvoice> detailInvoices = new LinkedHashSet<>();
-//
-//}
+package com.danieldjam.ecomer.models.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.sql.Date;
+import java.util.List;
+
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "Invoice")
+public class Invoice {
+    @Id
+    @Column(name = "invoice_id", nullable = false)
+    private Integer invoiceId;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_user_id", nullable = false)
+    private User userId;
+
+    @Column(name = "final_price")
+    private Float finalPrice;
+
+    @Column(name = "invoice_date")
+    private Date invoiceDate;
+
+//    @OneToMany
+//    @JoinColumn(name = "product_id", nullable = false)
+//    private List<Product> productList;
+}

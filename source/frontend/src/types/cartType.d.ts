@@ -2,7 +2,7 @@ import { User } from "./userType";
 import { Product } from "./productType";
 
 export interface Cart {
-  userId: User,
+  // userId: User,
   cartProducts: Array<CartProduct>,
   totalPrice: number
 }

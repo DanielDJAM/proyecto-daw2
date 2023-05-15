@@ -1,6 +1,7 @@
 package com.danieldjam.ecomer.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,12 @@ public class User {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Product> productList;
+
+    @OneToMany
+    @JoinColumn(name = "invoice_user_id")
+    private List<Invoice> invoicesList;
+
+
 
 
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

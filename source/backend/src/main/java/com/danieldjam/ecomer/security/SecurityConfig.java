@@ -36,7 +36,8 @@ public class SecurityConfig {
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
 
         return http
-                .cors().and()
+
+              .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .anyRequest()

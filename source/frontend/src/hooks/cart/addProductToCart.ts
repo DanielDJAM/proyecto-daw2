@@ -5,29 +5,29 @@ import { Product } from "../../types/productType";
 import { API_BASE_URL } from "../../globals";
 import { getProductById } from "../product/getProductById";
 
-export const saveCartToLocalStorage = (cart: Cart) => {
+const saveCartToLocalStorage = (cart: Cart) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export const getCartFromLocalStorage = (): Cart | null => {
+export const getCartFromLocalStorage = async (): Promise<Cart> => {
   const cartJSON = localStorage.getItem('cart');
 
   if (cartJSON) {
     return JSON.parse(cartJSON);
   }
 
-  return null;
+  return {
+    cartProducts: [],
+    totalPrice: 0
+  };
 }
 
 const addProductToCart = async (productId: string, quantity: number = 1) => {
-  let cart: Cart | null = getCartFromLocalStorage();
-  if (!cart) {
-    return;
-  }
+  let cart: Cart = await getCartFromLocalStorage();
 
   try {
     const product = await getProductById(productId);
-
+    console.log(product)
     const cartProductIndex = cart.cartProducts.findIndex(cp => cp.product.productId === product.productId);
 
     if (cartProductIndex !== -1) {
@@ -38,6 +38,7 @@ const addProductToCart = async (productId: string, quantity: number = 1) => {
     }
 
     cart.totalPrice += product.price * quantity;
+    console.log(cart)
 
     saveCartToLocalStorage(cart);
   } catch (error) {
@@ -45,8 +46,8 @@ const addProductToCart = async (productId: string, quantity: number = 1) => {
   }
 };
 
-export const removeProductFromCart = async (productId: string) => {
-  let cart: Cart | null = getCartFromLocalStorage();
+const removeProductFromCart = async (productId: string) => {
+  let cart: Cart = await getCartFromLocalStorage();
   if (!cart) {
     return;
   }
@@ -66,8 +67,8 @@ export const removeProductFromCart = async (productId: string) => {
   }
 };
 
-export const clearCart = () => {
-  let cart: Cart | null = getCartFromLocalStorage();
+const clearCart = async () => {
+  let cart: Cart = await getCartFromLocalStorage();
   if (!cart) {
     return;
   }
@@ -76,8 +77,8 @@ export const clearCart = () => {
   saveCartToLocalStorage(cart);
 }
 
-const buyProductsFromCart = async (id: number) => {
-  let cart: Cart | null = getCartFromLocalStorage();
+const buyProductsFromCart = async () => {
+  let cart: Cart = await getCartFromLocalStorage();
   if (!cart) {
     return;
   }
@@ -85,7 +86,6 @@ const buyProductsFromCart = async (id: number) => {
     .post(API_BASE_URL + "/buyproducts", cart)
     .then((response) => {
       if (response.data.accessToken) {
-        console.log(response);
         clearCart();
       }
       return response.data;
@@ -93,6 +93,7 @@ const buyProductsFromCart = async (id: number) => {
 }
 
 const CartService = {
+  getCartFromLocalStorage,
   addProductToCart,
   buyProductsFromCart,
   clearCart,

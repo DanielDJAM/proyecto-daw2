@@ -21,7 +21,7 @@ public class ProductController {
     private ModelMapper modelMapper;
 
     @GetMapping()
-    public List<ProductDTO> getAllProducts(){
+    public List<ProductDTO> getAllProducts(@RequestParam String categoryId){
         return productService.getAllProducts();
     }
 

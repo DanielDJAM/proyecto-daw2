@@ -53,6 +53,11 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/cart">
+                Carrito
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/products/create">
                 Crear Producto
               </Link>

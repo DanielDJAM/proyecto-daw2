@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../hooks/user/authentication";
 import { Product } from "../../types/productType";
-import AddButton from "../AddButton/AddButton";
-// import AddButton from "../AddButton/AddButton";
-// import DeleteButtonDB from "../DeleteButtonDB/DeleteButtonDB";
+import AddButtonToCart from "../AddButtonToCart/AddButtonToCart";
 
 interface AppState {
   product: Product;
@@ -34,8 +32,9 @@ const ProductCard = ({ product }: AppState) => {
   }, [product.image]);
 
   return (
-    <Link className="card product-card" to={`/products/${product.productId}`}>
-      <img src={imageUrl || require("../../assets/images/default.jpg")} className="card-img-top" alt={product.name} />
+    // <Link className="card product-card" to={`/products/${product.productId}`}>
+    <div className="card product-card">
+      <img src={imageUrl || require("../../assets/images/default.jpg")} className="card-img-top" alt={product.name} onClick={() => { window.location.href=`/products/${product.productId}` }}/>
       <div className="card-body">
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">{product.description}</p>
@@ -45,9 +44,10 @@ const ProductCard = ({ product }: AppState) => {
         <li className="list-group-item">Disponibles: {product.stock}</li>
       </ul>
       <div className="card-body">
-        <AddButton id={product.productId} />
+        <AddButtonToCart id={product.productId} />
       </div>
-    </Link>
+      </div>
+    // </Link>
   );
 };
 

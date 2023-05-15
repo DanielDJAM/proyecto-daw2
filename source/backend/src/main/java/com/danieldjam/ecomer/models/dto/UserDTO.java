@@ -1,8 +1,12 @@
 package com.danieldjam.ecomer.models.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties("password")
 public class UserDTO {
 
     private Integer userId;

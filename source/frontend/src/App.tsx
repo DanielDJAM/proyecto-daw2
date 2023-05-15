@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import UserList from "./pages/UserList/UserList";
 import ProductsCatalogue from "./pages/ProductsCatalogue/ProductsCatalogue";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
+import CartProducts from "./pages/CartProducts/CartProducts";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/products" element={<ProductsCatalogue />} />
+          <Route path="/cart" element={<CartProducts />} />
           <Route path="/" element={<ProductsCatalogue />} />
           <Route path="/products/create" element={<CreateProduct />} />
 

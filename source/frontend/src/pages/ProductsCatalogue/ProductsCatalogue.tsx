@@ -19,7 +19,6 @@ const ProductsCatalogue = () => {
     setLoading(true);
     getAllProducts().then(response => {
       setProducts(response);
-      console.log(response)
       setLoading(false);
     });
   }, []);

@@ -3,7 +3,7 @@ import { Product } from "../../types/productType";
 import axios from "axios";
 import AuthService from "../user/authentication";
 
-export const getAllProducts = (): Promise<Array<Product>> => {
+export const getAllProducts = async (): Promise<Array<Product>> => {
   const token = AuthService.getToken();
   return axios.get(API_BASE_URL + "/products", {
     headers: {
@@ -14,3 +14,5 @@ export const getAllProducts = (): Promise<Array<Product>> => {
       console.log(error);
     });
 };
+
+export default getAllProducts;

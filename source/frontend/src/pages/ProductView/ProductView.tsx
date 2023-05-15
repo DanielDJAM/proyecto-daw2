@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import AddButton from "../../components/AddButton/AddButton";
+import AddButton from "../../components/AddButtonToCart/AddButtonToCart";
 import { getProductById } from "../../hooks/product/getProductById";
 import { Product } from "../../types/productType";
 import Loader from "../../components/Loader/Loader";
 import AuthService from "../../hooks/user/authentication";
-// import DeleteButtonDB from "../../components/DeleteButtonDB/DeleteButtonDB";
 
 interface AppState {
   product: Product;
@@ -14,27 +13,25 @@ interface AppState {
 const ProductView = () => {
   let { id } = useParams();
   const [product, setProduct] = useState<AppState["product"]>();
+  const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
   const [loading, setLoading] = useState<boolean>();
-  const [currentUser, setCurrentUser] = useState({
-    accessToken: null,
-    role: null,
-  });
-
-  useEffect(() => {
-    const user = AuthService.getToken();
-
-    if (user) {
-      setCurrentUser(user);
-    }
-  }, []);
 
   useEffect(() => {
     setLoading(true);
     getProductById(id).then((response) => {
       setProduct(response);
       setLoading(false);
+
+      if (response.image) {
+        const reader = new FileReader();
+        reader.readAsDataURL(new Blob([response.image], { type: 'image/jpeg' }));
+        reader.onloadend = () => {
+          setImageUrl(reader.result);
+        };
+      }
     });
   }, [id]);
+
 
   return (
     <main>
@@ -52,7 +49,6 @@ const ProductView = () => {
               <h3 className="price">{product?.price}€</h3>
             </div>
             <div className="buttons">
-              {/* {currentUser.role === "admin" && <DeleteButtonDB id={id} />} */}
               <AddButton id={id} />
             </div>
           </div>

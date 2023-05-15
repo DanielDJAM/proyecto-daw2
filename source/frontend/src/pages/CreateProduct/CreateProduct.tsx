@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import Loader from "../../components/Loader/Loader";
 import PasswordButton from "../../components/PasswordButton/PasswordButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Product } from "../../types/productType";
+import { Category } from "../../types/categoryType";
 import createProduct from "../../hooks/product/createProduct";
+import getAllCategories from "../../hooks/product/getAllCategories";
 
 export interface AppState {
-  name: string, 
+  name: string,
   stock: number,
   price: number,
   description: string,
-  image: string,
+  image: FileList,
+  categories: Array<Category>,
+  allCategories: Array<Category>
 }
 
 const validationSchema = Yup.object().shape({
@@ -31,31 +36,49 @@ const validationSchema = Yup.object().shape({
 })
 
 const CreateProduct = () => {
+  const [allCategories, setAllCategories] = useState<AppState["allCategories"]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<AppState["categories"]>([]);
+  const [loadingCategories, setLoadingCategories] = useState<boolean>();
+  const [errorSignUp, setErrorSignUp] = useState("");
+  const navigate = useNavigate();
+
   const { register, handleSubmit, formState: { errors } } = useForm<AppState>({
     resolver: yupResolver(validationSchema)
   });
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOptions = Array.from(event.target.selectedOptions);
+    const selectedCategories = selectedOptions.map((option) => allCategories.find((category) => category.categoryId.toString() === option.value)!);
+    setSelectedCategories(selectedCategories);
+  };
+
+  useEffect(() => {
+    setLoadingCategories(true);
+    getAllCategories().then(response => {
+      setAllCategories(response);
+      setLoadingCategories(false);
+    });
+  }, []);
 
   const onSubmit = async (data: AppState) => {
     handleCreateProduct(data);
   };
 
-  const [errorSignUp, setErrorSignUp] = useState("");
-  const navigate = useNavigate();
-
   const handleCreateProduct = async (data: AppState) => {
     const product: Product = {
+      productId: undefined,
       name: data.name,
       stock: data.stock,
       price: data.price,
       description: data.description,
-      image: data.image,
-      userId: 65646532
+      image: data.image[0],
+      categories: selectedCategories.map((categoryId) => categoryId)
     };
     try {
       await createProduct(product).then(
         () => {
-          navigate("/");
-          window.location.reload();
+          // navigate("/");
+          // window.location.reload();
         },
         (error) => {
           console.log(error);
@@ -85,7 +108,7 @@ const CreateProduct = () => {
             />
             <div className="invalid-feedback">{errors.name?.message}</div>
           </div>
-          <div className="col-6">
+          <div className="col-3">
             <label htmlFor="stock" className="form-label">
               Stock
             </label>
@@ -99,7 +122,7 @@ const CreateProduct = () => {
             />
             <div className="invalid-feedback">{errors.stock?.message}</div>
           </div>
-          <div className="col-6">
+          <div className="col-3">
             <label htmlFor="price" className="form-label">
               Precio
             </label>
@@ -113,6 +136,18 @@ const CreateProduct = () => {
             />
             <div className="invalid-feedback">{errors.price?.message}</div>
           </div>
+          {loadingCategories ? <Loader /> :
+            <div className="col-12">
+              <label htmlFor="categories" className="form-label">
+                Categorias
+              </label>
+              <select className="form-control" name="categories" id="categories" multiple onChange={handleSelectChange}>
+                {allCategories && allCategories.map((category) => (
+                  <option key={category.categoryId} value={category.categoryId}>{category.name}</option>
+                ))}
+              </select>
+            </div>
+          }
           <div className="col-12">
             <label htmlFor="description" className="form-label">
               Descripción

@@ -4,6 +4,8 @@ import com.danieldjam.ecomer.models.dto.UserDTO;
 import com.danieldjam.ecomer.models.entities.*;
 import com.danieldjam.ecomer.repository.RolesRepository;
 import com.danieldjam.ecomer.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

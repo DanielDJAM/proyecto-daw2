@@ -6,6 +6,7 @@ export interface Product {
   stock: number,
   price: number,
   description: string,
-  image: string,
-  userId: number
+  image: File,
+  categories?: Array<Category>,
+  userId?: number
 }
