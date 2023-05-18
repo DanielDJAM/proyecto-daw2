@@ -14,7 +14,7 @@ import lombok.*;
 public class Address {
 
     @Id
-    @Column(name = "address_id", nullable = false)
+    @Column(name = "address_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String addressId;
 

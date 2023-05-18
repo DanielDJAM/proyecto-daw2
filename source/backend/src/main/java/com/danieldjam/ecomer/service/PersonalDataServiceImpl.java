@@ -25,13 +25,6 @@ public class PersonalDataServiceImpl implements PersonalDataService{
     @Autowired
     private AddressService addressService;
 
-//    @Override
-//    public PersonalDataDTO createPersonalData(PersonalDataDTO personalDataDTO) {
-//        PersonalData personalData = convertPersonalDataDTOToEntity(personalDataDTO);
-//        PersonalData newPersonalData = personalDataRepository.save(personalData);
-//        return convertPersonalDataEntityToDTO(newPersonalData);
-//    }
-
     @Override
     public List<PersonalDataDTO> getAllPersonalData() {
         List<PersonalData> personalDataList = personalDataRepository.findAll();
@@ -47,9 +40,7 @@ public class PersonalDataServiceImpl implements PersonalDataService{
 
     @Override
     public PersonalDataDTO createPersonalData(PersonalDataDTO personalDataDTO) {
-        PersonalData personalData = convertPersonalDataDTOToEntity(personalDataDTO);
-        PersonalData savedPersonalData = personalDataRepository.save(personalData);
-        return convertPersonalDataEntityToDTO(savedPersonalData);
+        return convertPersonalDataEntityToDTO(personalDataRepository.save(convertPersonalDataDTOToEntity(personalDataDTO)));
     }
 
     @Override
@@ -67,12 +58,10 @@ public class PersonalDataServiceImpl implements PersonalDataService{
         personalDataRepository.deleteById(dni);
     }
 
-    @Override
     public PersonalData convertPersonalDataDTOToEntity(PersonalDataDTO personalDataDTO){
         return modelMapper.map(personalDataDTO, PersonalData.class);
     }
 
-    @Override
     public PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){
         return modelMapper.map(personalData, PersonalDataDTO.class);
     }

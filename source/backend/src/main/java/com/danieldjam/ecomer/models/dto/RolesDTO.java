@@ -1,41 +1,23 @@
 package com.danieldjam.ecomer.models.dto;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class RolesDTO {
 
-    private String rolId;
+    private Integer rolId;
     private String name;
     private String description;
+    private List<Integer> userList = new ArrayList<>();
 
-    public RolesDTO() {
-    }
-
-    public RolesDTO(String rolId, String name, String description) {
-        this.rolId = rolId;
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getRolId() {
-        return rolId;
-    }
-
-    public void setRolId(String rolId) {
-        this.rolId = rolId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

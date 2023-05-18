@@ -40,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         productDTO.setUserId(userRepository.findByEmail(authentication.getName()).get().getUserId());
-
         mapDtoToEntity(productDTO, product);
         Product newProduct = productRepository.save(product);
         return mapEntityToDto(newProduct);
@@ -84,21 +83,12 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    @Override
-    public Product convertProductDTOToEntity(ProductDTO productDTO){
-        return modelMapper.map(productDTO, Product.class);
-    }
-    @Override
-    public ProductDTO convertProductEntityToDTO(Product product){
-        return modelMapper.map(product, ProductDTO.class);
-    }
-
     private void mapDtoToEntity(ProductDTO productDTO, Product product){
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
         product.setStock(productDTO.getStock());
-        product.setUserId(userRepository.findById(productDTO.getUserId().toString()).get());
+        product.setUserId(userRepository.findById(productDTO.getUserId()).get());
         byte[] imageBytes = productDTO.getImage();
         product.setImage(imageBytes);
         if (null == product.getCategories()) {

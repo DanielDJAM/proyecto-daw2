@@ -1,43 +1,45 @@
-//package com.danieldjam.ecomer.models.entities;
-//
-//import jakarta.persistence.*;
-//import lombok.*;
-//
-//@Builder
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Getter
-//@Setter
-//@ToString
-//@Entity
-//@Table(name = "`Order`")
-//public class Order {
-//
-//    @ToString.Exclude
-//    @MapsId("userId")
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "user_ID", nullable = false)
-//    private User user;
-//
-//    @ToString.Exclude
-//    @MapsId("invoiceId")
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "invoice_ID", nullable = false)
-//    private Invoice invoice;
-//
-//    @Column(name = "arrivalDate", nullable = false, length = 45)
-//    private String arrivalDate;
-//
-//    @Column(name = "estimatedDate", nullable = false, length = 45)
-//    private String estimatedDate;
-//
-//    @Column(name = "departureDate", nullable = false, length = 45)
-//    private String departureDate;
-//
-//    @Column(name = "initialLocation", nullable = false, length = 45)
-//    private String initialLocation;
-//
-//    @Column(name = "finalLocation", nullable = false, length = 45)
-//    private String finalLocation;
-//
-//}
+package com.danieldjam.ecomer.models.entities;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.sql.Date;
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "order")
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    private Integer orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
+    @Column(name = "arrivalDate")
+    private Date arrivalDate;
+
+    @Column(name = "estimatedDate")
+    private Date estimatedDate;
+
+    @Column(name = "departureDate")
+    private Date departureDate;
+
+    @Column(name = "initialLocation")
+    private String initialLocation;
+
+    @Column(name = "finalLocation")
+    private String finalLocation;
+
+    @Column(name = "status_order")
+    private String statusOrder;
+
+}

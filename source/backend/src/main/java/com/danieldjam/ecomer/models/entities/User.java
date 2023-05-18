@@ -1,11 +1,13 @@
 package com.danieldjam.ecomer.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -40,13 +42,11 @@ public class User {
     private List<Product> productList;
 
     @OneToMany
-    @JoinColumn(name = "invoice_user_id")
-    private List<Invoice> invoicesList;
+    @JoinColumn(name = "user_id")
+    private List<Order> orderList;
 
-
-
-
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "rol_id", nullable = false)
-//    private Roles rolId;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_has_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @JsonBackReference
+    private List<Roles> rolesList = new ArrayList<>();
 }

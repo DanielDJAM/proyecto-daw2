@@ -13,7 +13,4 @@ public interface ProductService {
     public ProductDTO updateProduct(String productId, ProductDTO productDTO);
     public  void deleteProductById(String productId);
 
-    public Product convertProductDTOToEntity(ProductDTO productDTO);
-    public ProductDTO convertProductEntityToDTO(Product product);
-
 }

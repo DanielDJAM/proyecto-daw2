@@ -17,9 +17,4 @@ public interface PersonalDataService {
 
     public void deletePersonalDataById(String dni);
 
-    public PersonalData convertPersonalDataDTOToEntity(PersonalDataDTO personalDataDTO);
-
-    public PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData);
-
-
 }

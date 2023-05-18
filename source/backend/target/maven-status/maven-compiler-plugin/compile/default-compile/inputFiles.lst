@@ -7,6 +7,7 @@
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/AddressDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/Category.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/PersonalData.java
+/home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/InvoiceDetailsDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/UserServiceImpl.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/CategoryDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/repository/InvoiceRepository.java
@@ -15,18 +16,16 @@
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/controllers/CategoryController.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/controllers/PersonalDataController.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/EcomerApplication.java
-/home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/CategoriesHasProduct.java
-/home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/CategoriesHasProductDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/PersonalDataServiceImpl.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/InvoiceServicesImpl.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/AddressService.java
-/home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/InvoiceDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/RolesServiceImpl.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/CategoryService.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/Order.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/TokenDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/service/RolesService.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/controllers/ProductController.java
+/home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/dto/OrderDTO.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/Product.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/security/CustomUserDetailsService.java
 /home/danielexpero/proyecto-daw2/source/backend/src/main/java/com/danieldjam/ecomer/models/entities/User.java

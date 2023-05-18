@@ -49,6 +49,9 @@ public class Product {
     @JsonBackReference
     private List<Category> categories;
 
+    @ManyToMany(mappedBy = "productList")
+    private List<Invoice> invoiceList;
+
     public void addCategory(Category category) {
         this.categories.add(category);
         category.getProductList().add(this);
@@ -64,7 +67,5 @@ public class Product {
             removeCategory(category);
         }
     }
-
-
 
 }

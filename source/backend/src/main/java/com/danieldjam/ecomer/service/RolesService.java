@@ -9,10 +9,9 @@ public interface RolesService {
 
     public RolesDTO createRol(RolesDTO rolesDTO);
     public List<RolesDTO> getAllRoles();
+    public RolesDTO getRolByName(String name);
     public RolesDTO getRolById(String id);
-    public RolesDTO updateRol(String id, RolesDTO rolesDTO);
+    public RolesDTO updateRol(String name, RolesDTO rolesDTO);
     public void deleteRol(String id);
-    public RolesDTO convertRolesEntityToDTO(Roles roles);
-    public Roles convertRolesDTOToEntity(RolesDTO rolesDTO);
 
 }

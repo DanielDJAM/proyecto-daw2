@@ -1,7 +1,9 @@
 package com.danieldjam.ecomer.service;
 
+import com.danieldjam.ecomer.models.dto.PersonalDataDTO;
 import com.danieldjam.ecomer.models.dto.UserDTO;
 import com.danieldjam.ecomer.models.entities.*;
+import com.danieldjam.ecomer.repository.PersonalDataRepository;
 import com.danieldjam.ecomer.repository.RolesRepository;
 import com.danieldjam.ecomer.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,9 +25,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RolesRepository rolesRepository;
-
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         User newUser = userRepository.save(convertUserDTOToEntity(userDTO));
@@ -40,14 +39,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO getUserById(String userId) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(Integer.parseInt(userId))
                 .orElseThrow(() -> new NoSuchElementException("User not found with userId " + userId));
         return convertUserEntityToDTO(user);
     }
 
     @Override
     public UserDTO updateUser(String userId, UserDTO userDTO) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(Integer.parseInt(userId))
                 .orElseThrow(() -> new NoSuchElementException("User not found with userId " + userId));
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUserById(String userId) {
-        userRepository.deleteById(userId);
+        userRepository.deleteById(Integer.parseInt(userId));
     }
 
     private UserDTO convertUserEntityToDTO(User user){
@@ -67,4 +66,19 @@ public class UserServiceImpl implements UserService{
     private User convertUserDTOToEntity(UserDTO userDTO){
         return modelMapper.map(userDTO, User.class);
     };
+
+//
+//    private PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){return modelMapper.map(personalData, PersonalDataDTO.class);}
+//
+//    private PersonalData convertPersonalDataDtoToEntity(PersonalDataDTO personalDataDTO){return modelMapper.map(personalDataDTO, PersonalData.class);}
+//
+//    private void mapDtoToEntity(UserDTO userDTO, User user){
+//        user.setDni(convertPersonalDataDtoToEntity(userDTO.getDni()));
+//        user.setUsername(userDTO.getUsername());
+//        user.setPassword(userDTO.getPassword());
+//        user.setEmail(userDTO.getEmail());
+//        user.setOrderList(userDTO.getOrderList());
+//    }
+
+
 }

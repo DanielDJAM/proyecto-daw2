@@ -24,19 +24,19 @@ public class RolesController {
         return new ResponseEntity<>(rolesService.createRol(rolesDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RolesDTO> getRolById(@PathVariable String id) {
-        return new ResponseEntity<>(rolesService.getRolById(id), HttpStatus.OK);
+    @GetMapping("/{rolId}")
+    public ResponseEntity<RolesDTO> getRolById(@PathVariable String rolId) {
+        return new ResponseEntity<>(rolesService.getRolById(rolId), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RolesDTO> editRolById(@PathVariable String id, @RequestBody RolesDTO rolesDTO) {
-        return new ResponseEntity<>(rolesService.updateRol(id, rolesDTO), HttpStatus.OK);
+    @PutMapping("/{rolId}")
+    public ResponseEntity<RolesDTO> editRolById(@PathVariable String rolId, @RequestBody RolesDTO rolesDTO) {
+        return new ResponseEntity<>(rolesService.updateRol(rolId, rolesDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRolById(@PathVariable String id){
-        rolesService.deleteRol(id);
+    @DeleteMapping("/{rolId}")
+    public ResponseEntity<Void> deleteRolById(@PathVariable String rolId){
+        rolesService.deleteRol(rolId);
         return ResponseEntity.noContent().build();
     }
 
