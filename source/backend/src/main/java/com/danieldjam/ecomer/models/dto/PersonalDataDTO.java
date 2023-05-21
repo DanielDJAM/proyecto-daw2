@@ -15,7 +15,6 @@ import java.sql.Date;
 public class PersonalDataDTO {
 
     private String dni;
-    private AddressDTO addressId;
     private Date birthdate;
     private String genre;
     private String name;

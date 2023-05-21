@@ -1,3 +1,4 @@
+/*
 package com.danieldjam.ecomer.models.dto;
 
 
@@ -21,3 +22,4 @@ public class RolesDTO {
     private List<Integer> userList = new ArrayList<>();
 
 }
+*/

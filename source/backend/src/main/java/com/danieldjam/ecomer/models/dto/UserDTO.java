@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,15 +17,14 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
-@JsonIgnoreProperties("password")
 public class UserDTO {
 
     private Integer userId;
-    private PersonalDataDTO dni;
+    private String dni;
     private String username;
     private String email;
     private String password;
-    private List<String> productList;
-    private List<String> orderList;
-    private List<Integer> roles;
+    private List<Integer> productList = new ArrayList<>();
+    private List<Integer> orderList = new ArrayList<>();
+    /*private List<Integer> roles;*/
 }

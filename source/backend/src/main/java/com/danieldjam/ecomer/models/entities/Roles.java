@@ -1,3 +1,4 @@
+/*
 package com.danieldjam.ecomer.models.entities;
 
 import jakarta.persistence.*;
@@ -44,4 +45,4 @@ public class Roles {
         }
     }
 
-}
+}*/

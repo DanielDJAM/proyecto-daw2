@@ -1,3 +1,4 @@
+/*
 package com.danieldjam.ecomer.service;
 
 import com.danieldjam.ecomer.models.dto.RolesDTO;
@@ -15,3 +16,4 @@ public interface RolesService {
     public void deleteRol(String id);
 
 }
+*/

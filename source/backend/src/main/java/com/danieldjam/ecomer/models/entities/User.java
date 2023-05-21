@@ -17,9 +17,10 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "User")
+@JsonIgnoreProperties({"productList", "orderList"})
 public class User {
     @Id
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
@@ -37,16 +38,17 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Product> productList;
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Product> productList = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Order> orderList;
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Order> orderList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    /*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(name = "user_has_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     @JsonBackReference
-    private List<Roles> rolesList = new ArrayList<>();
+    @JsonIgnore
+    private List<Roles> rolesList = new ArrayList<>();*/
 }

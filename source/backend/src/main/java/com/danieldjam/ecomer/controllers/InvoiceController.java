@@ -1,6 +1,7 @@
 package com.danieldjam.ecomer.controllers;
 
 import com.danieldjam.ecomer.models.dto.InvoiceDTO;
+import com.danieldjam.ecomer.models.entities.Invoice;
 import com.danieldjam.ecomer.repository.InvoiceRepository;
 import com.danieldjam.ecomer.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;

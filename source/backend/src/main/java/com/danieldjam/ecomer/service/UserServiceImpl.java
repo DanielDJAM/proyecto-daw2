@@ -1,15 +1,12 @@
 package com.danieldjam.ecomer.service;
 
-import com.danieldjam.ecomer.models.dto.PersonalDataDTO;
 import com.danieldjam.ecomer.models.dto.UserDTO;
 import com.danieldjam.ecomer.models.entities.*;
 import com.danieldjam.ecomer.repository.PersonalDataRepository;
-import com.danieldjam.ecomer.repository.RolesRepository;
 import com.danieldjam.ecomer.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,23 +22,30 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    PersonalDataRepository personalDataRepository;
+
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        User newUser = userRepository.save(convertUserDTOToEntity(userDTO));
-        return convertUserEntityToDTO(newUser);
+        User user = convertUserDTOToEntity(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        return convertUserEntityToDTO(userRepository.save(user));
     }
 
     @Override
     public List<UserDTO> getAllUsers() {
         List<User> userList = userRepository.findAll();
-        return userList.stream().map(user -> convertUserEntityToDTO(user)).collect(Collectors.toList());
+        return userList.stream().map(user -> mapEntityToDto(user)).collect(Collectors.toList());
     }
 
     @Override
     public UserDTO getUserById(String userId) {
         User user = userRepository.findById(Integer.parseInt(userId))
                 .orElseThrow(() -> new NoSuchElementException("User not found with userId " + userId));
-        return convertUserEntityToDTO(user);
+        return mapEntityToDto(user);
     }
 
     @Override
@@ -49,7 +53,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(Integer.parseInt(userId))
                 .orElseThrow(() -> new NoSuchElementException("User not found with userId " + userId));
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setEmail(userDTO.getEmail());
         return convertUserEntityToDTO(userRepository.save(user));
     }
@@ -67,18 +71,25 @@ public class UserServiceImpl implements UserService{
         return modelMapper.map(userDTO, User.class);
     };
 
-//
-//    private PersonalDataDTO convertPersonalDataEntityToDTO(PersonalData personalData){return modelMapper.map(personalData, PersonalDataDTO.class);}
-//
-//    private PersonalData convertPersonalDataDtoToEntity(PersonalDataDTO personalDataDTO){return modelMapper.map(personalDataDTO, PersonalData.class);}
-//
-//    private void mapDtoToEntity(UserDTO userDTO, User user){
-//        user.setDni(convertPersonalDataDtoToEntity(userDTO.getDni()));
-//        user.setUsername(userDTO.getUsername());
-//        user.setPassword(userDTO.getPassword());
-//        user.setEmail(userDTO.getEmail());
-//        user.setOrderList(userDTO.getOrderList());
-//    }
+    private void mapDtoToEntity(UserDTO userDTO, User user){
+        user.setDni(personalDataRepository.getReferenceById(userDTO.getDni()));
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
+    }
+
+    private UserDTO mapEntityToDto(User user){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(user.getUserId());
+        userDTO.setDni(user.getDni().getDni());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setProductList(user.getProductList().stream().map(Product::getProductId).collect(Collectors.toList()));
+        userDTO.setOrderList(user.getOrderList().stream().map(Order::getOrderId).collect(Collectors.toList()));
+        return userDTO;
+    }
+
 
 
 }

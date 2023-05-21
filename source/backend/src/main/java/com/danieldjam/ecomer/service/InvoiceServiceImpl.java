@@ -1,11 +1,12 @@
 package com.danieldjam.ecomer.service;
 
+import com.danieldjam.ecomer.models.dto.AddressDTO;
 import com.danieldjam.ecomer.models.dto.InvoiceDTO;
-import com.danieldjam.ecomer.models.entities.Invoice;
-import com.danieldjam.ecomer.models.entities.Product;
+import com.danieldjam.ecomer.models.entities.*;
 import com.danieldjam.ecomer.repository.InvoiceRepository;
 import com.danieldjam.ecomer.repository.OrderRepository;
 import com.danieldjam.ecomer.repository.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,9 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Transactional
     @Override
@@ -58,7 +62,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     @Override
     public InvoiceDTO updateInvoice(String invoiceId, InvoiceDTO invoiceDTO) {
         Invoice invoice = invoiceRepository.getOne(Integer.parseInt(invoiceId));
-        invoice.getProductList().clear();
+/*        invoice.getProductList().clear();*/
         mapDtoToEntity(invoiceDTO, invoice);
         return mapEntityToDto(invoiceRepository.save(invoice));
     }
@@ -67,20 +71,20 @@ public class InvoiceServiceImpl implements InvoiceService{
     @Override
     public void deleteInvoiceById(String invoiceId) {
         Optional<Invoice> invoice = invoiceRepository.findById(Integer.parseInt(invoiceId));
-        if (invoice.isPresent()){
+/*        if (invoice.isPresent()){
             invoice.get().removeAllProducts();
             invoiceRepository.deleteById(Integer.parseInt(invoiceId));
-        }
+        }*/
     }
 
     private void mapDtoToEntity(InvoiceDTO invoiceDTO, Invoice invoice){
-        invoice.setQuantity(invoiceDTO.getQuantity());
+/*        invoice.setQuantity(invoiceDTO.getQuantity());
         invoice.setUnitPrice(invoiceDTO.getUnitPrice());
         invoice.setTotalPrice(invoiceDTO.getTotalPrice());
-        invoice.setFinalPrice(invoiceDTO.getFinalPrice());
+        invoice.setFinalPrice(invoiceDTO.getFinalPrice());*/
         invoice.setOrderId(orderRepository.findById(invoiceDTO.getOrderId()).get());
         invoice.setInvoiceDate(invoiceDTO.getInvoiceDate());
-        if (null == invoice.getProductList()) {
+/*        if (null == invoice.getProductList()) {
             invoice.setProductList(new ArrayList<>());
         }
         invoiceDTO.getProductListDTO().stream().forEach(productId -> {
@@ -91,22 +95,28 @@ public class InvoiceServiceImpl implements InvoiceService{
             }
             product.setProductId(productId);
             invoice.addProduct(product);
-        });
+        });*/
     }
 
 
     private InvoiceDTO mapEntityToDto(Invoice invoice) {
         InvoiceDTO invoiceDTO = new InvoiceDTO();
-        invoiceDTO.setQuantity(invoice.getQuantity());
+/*        invoiceDTO.setQuantity(invoice.getQuantity());
         invoiceDTO.setUnitPrice(invoice.getUnitPrice());
         invoiceDTO.setTotalPrice(invoice.getTotalPrice());
-        invoiceDTO.setFinalPrice(invoice.getFinalPrice());
+        invoiceDTO.setFinalPrice(invoice.getFinalPrice());*/
         invoiceDTO.setOrderId(invoice.getOrderId().getOrderId());
         invoiceDTO.setInvoiceDate(invoice.getInvoiceDate());
         invoiceDTO.setInvoiceId(invoice.getInvoiceId());
-        invoiceDTO.setProductListDTO(invoice.getProductList().stream().map(Product::getProductId).collect(Collectors.toList()));
+        invoiceDTO.setInvoiceProductListDTO(invoice.getInvoiceProductList().stream().map(InvoiceProduct::getProductInvoiceId).collect(Collectors.toList()));
         return invoiceDTO;
     }
+
+    public Invoice convertDTOToEntity(InvoiceDTO invoiceDTO){
+        return modelMapper.map(invoiceDTO, Invoice.class);
+    }
+
+    private InvoiceDTO convertEntityToDTO(Invoice invoice) {return modelMapper.map(invoice, InvoiceDTO.class);}
 
 
 }

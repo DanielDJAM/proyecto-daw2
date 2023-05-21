@@ -1,3 +1,4 @@
+/*
 package com.danieldjam.ecomer.repository;
 
 import com.danieldjam.ecomer.models.entities.Roles;
@@ -10,3 +11,4 @@ public interface RolesRepository extends JpaRepository<Roles, Integer> {
     Roles findByName(String name);
 
 }
+*/

@@ -1,6 +1,5 @@
 package com.danieldjam.ecomer.service;
 
-import com.danieldjam.ecomer.models.dto.InvoiceDTO;
 import com.danieldjam.ecomer.models.dto.OrderDTO;
 import com.danieldjam.ecomer.models.entities.Order;
 import com.danieldjam.ecomer.repository.OrderRepository;
@@ -28,12 +27,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderDTO> getAllOrders() {
         List<Order> orderList = orderRepository.findAll();
-        return orderList.stream().map(order -> convertEntityToDto(order)).collect(Collectors.toList());
+        return orderList.stream().map(order -> mapEntityToDto(order)).collect(Collectors.toList());
     }
 
     @Override
     public OrderDTO getOrderById(String orderId) {
-        return convertEntityToDto(orderRepository.findById(Integer.parseInt(orderId)).get());
+        return mapEntityToDto(orderRepository.findById(Integer.parseInt(orderId)).get());
     }
 
     @Override
@@ -60,4 +59,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
+    private OrderDTO mapEntityToDto(Order order){
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderId(order.getOrderId());
+        orderDTO.setUserId(order.getUserId().getUserId());
+        orderDTO.setArrivalDate(order.getArrivalDate());
+        orderDTO.setEstimatedDate(order.getEstimatedDate());
+        orderDTO.setDepartureDate(order.getDepartureDate());
+        orderDTO.setFinalLocation(order.getFinalLocation());
+        orderDTO.setStatusOrder(order.getStatusOrder());
+        orderDTO.setInitialLocation(order.getInitialLocation());
+        return orderDTO;
+    }
 }

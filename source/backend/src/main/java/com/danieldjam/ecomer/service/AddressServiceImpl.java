@@ -3,6 +3,7 @@ package com.danieldjam.ecomer.service;
 import com.danieldjam.ecomer.models.dto.AddressDTO;
 import com.danieldjam.ecomer.models.entities.*;
 import com.danieldjam.ecomer.repository.AddressRepository;
+import com.danieldjam.ecomer.repository.PersonalDataRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class AddressServiceImpl implements AddressService{
     private ModelMapper modelMapper;
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    PersonalDataRepository personalDataRepository;
 
     @Override
     public AddressDTO createAddress(AddressDTO addressDTO) {
@@ -35,6 +39,7 @@ public class AddressServiceImpl implements AddressService{
     public AddressDTO updateAddress(String id , AddressDTO addressDTO) {
         Address address = addressRepository.findById(id).get();
 
+        address.setDni(personalDataRepository.getReferenceById(addressDTO.getDni()));
         address.setCity(addressDTO.getCity());
         address.setState(addressDTO.getState());
         address.setCountry(addressDTO.getCountry());

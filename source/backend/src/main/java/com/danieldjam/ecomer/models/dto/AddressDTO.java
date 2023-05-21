@@ -12,6 +12,7 @@ import lombok.Setter;
 public class AddressDTO {
 
     private Integer addressId;
+    private String dni;
     private String country;
     private String city;
     private String state;

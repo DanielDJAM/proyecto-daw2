@@ -1,6 +1,7 @@
 package com.danieldjam.ecomer.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,17 +13,17 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "order_history")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_id"), name = "user_id")
+    @JsonManagedReference
+    private User userId;
 
     @Column(name = "arrivalDate")
     private Date arrivalDate;

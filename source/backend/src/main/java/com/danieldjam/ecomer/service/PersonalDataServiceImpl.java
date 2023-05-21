@@ -48,7 +48,9 @@ public class PersonalDataServiceImpl implements PersonalDataService{
         PersonalData personalData = personalDataRepository.findById(dni)
                 .orElseThrow(() -> new NoSuchElementException("Personal Data not found with dni " + dni));
         personalData.setName(personalDataDTO.getName());
-        personalData.setAddressId(addressService.convertAddressDTOToEntity(personalDataDTO.getAddressId()));
+        personalData.setBirthdate(personalDataDTO.getBirthdate());
+        personalData.setGenre(personalDataDTO.getGenre());
+        personalData.setSurname(personalDataDTO.getSurname());
         PersonalData updatedPersonalData = personalDataRepository.save(personalData);
         return convertPersonalDataEntityToDTO(updatedPersonalData);
     }

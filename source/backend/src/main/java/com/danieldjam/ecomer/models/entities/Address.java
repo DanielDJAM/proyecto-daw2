@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "Address")
 public class Address {
@@ -17,6 +16,10 @@ public class Address {
     @Column(name = "address_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String addressId;
+
+    @ManyToOne
+    @JoinColumn(name = "dni")
+    private PersonalData dni;
 
     @Column(name = "city")
     private String city;

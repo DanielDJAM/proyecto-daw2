@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,14 +18,17 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Integer productId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_id"), name = "user_id")
     @JsonManagedReference
     private User userId;
 
@@ -49,8 +53,8 @@ public class Product {
     @JsonBackReference
     private List<Category> categories;
 
-    @ManyToMany(mappedBy = "productList")
-    private List<Invoice> invoiceList;
+    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InvoiceProduct> invoiceList = new ArrayList<>();
 
     public void addCategory(Category category) {
         this.categories.add(category);

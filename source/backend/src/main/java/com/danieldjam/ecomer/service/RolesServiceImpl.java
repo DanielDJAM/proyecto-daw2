@@ -1,6 +1,5 @@
-package com.danieldjam.ecomer.service;
+/*package com.danieldjam.ecomer.service;
 
-import com.danieldjam.ecomer.models.dto.ProductDTO;
 import com.danieldjam.ecomer.models.dto.RolesDTO;
 import com.danieldjam.ecomer.models.entities.Roles;
 import com.danieldjam.ecomer.models.entities.User;
@@ -101,4 +100,4 @@ public class RolesServiceImpl implements RolesService{
     }
 
 
-}
+}*/
